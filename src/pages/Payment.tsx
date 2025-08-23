@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { CreditCard, Calendar, MapPin, User, Lock } from "lucide-react";
+import { CreditCard, Calendar, MapPin, User, Lock, ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 const Payment = () => {
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
   const [hotelData, setHotelData] = useState<any>(null);
   const [nights, setNights] = useState(1);
 
@@ -51,6 +52,16 @@ const Payment = () => {
       
       <main className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
+          <div className="flex items-center mb-6">
+            <Button 
+              variant="ghost" 
+              onClick={() => navigate(-1)}
+              className="mr-4"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back
+            </Button>
+          </div>
           <h1 className="text-3xl font-bold text-foreground mb-8">Complete Your Booking</h1>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">

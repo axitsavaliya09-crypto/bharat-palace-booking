@@ -11,8 +11,8 @@ const Index = () => {
       <Header />
       <main>
         <Hero />
-        <TrustIndicators />
         <CitiesSection />
+        <TrustIndicators />
         <HotelListing />
       </main>
       <Footer />
