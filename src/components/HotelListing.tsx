@@ -14,49 +14,58 @@ const HotelListing = () => {
   const hotels = [
     {
       id: 1,
-      name: "Royal Palace Heritage",
-      location: "Jaipur, Rajasthan",
+      name: "Taj Palace Delhi",
+      location: "New Delhi, Delhi",
       image: hotel1,
       rating: 4.8,
       reviews: 892,
-      price: 8999,
-      originalPrice: 12999,
-      amenities: ["Free WiFi", "Parking", "Restaurant", "Pool"],
-      description: "Experience royal luxury in this magnificent palace hotel with traditional Rajasthani architecture and modern amenities.",
+      price: 15999,
+      originalPrice: 22999,
+      amenities: ["Free WiFi", "Valet Parking", "Fine Dining", "Luxury Spa"],
+      description: "Experience unparalleled luxury at India's most prestigious palace hotel with world-class service and royal hospitality.",
       icons: [Wifi, Car, Coffee, Waves]
     },
     {
       id: 2,
-      name: "Kerala Backwater Resort",
-      location: "Alleppey, Kerala",
+      name: "Hotel Lila Palace",
+      location: "Udaipur, Rajasthan",
       image: hotel2,
       rating: 4.7,
       reviews: 654,
-      price: 6999,
-      originalPrice: 9999,
-      amenities: ["Free WiFi", "Boat Tours", "Spa", "Restaurant"],
-      description: "Immerse yourself in nature's beauty with our luxury houseboat experience in the serene Kerala backwaters.",
+      price: 12999,
+      originalPrice: 18999,
+      amenities: ["Lake View", "Royal Spa", "Heritage Tours", "Fine Dining"],
+      description: "A magnificent lakeside palace offering royal Rajasthani hospitality with breathtaking views of Lake Pichola.",
       icons: [Wifi, Waves, Coffee, Car]
     },
     {
       id: 3,
-      name: "Himalayan Mountain Lodge",
-      location: "Manali, Himachal Pradesh",
+      name: "ITC Narmada",
+      location: "Ahmedabad, Gujarat",
       image: hotel3,
       rating: 4.9,
       reviews: 1234,
-      price: 7499,
-      originalPrice: 10999,
-      amenities: ["Mountain View", "Spa", "Restaurant", "Trekking"],
-      description: "Wake up to breathtaking mountain views in this luxury lodge nestled in the heart of the Himalayas.",
+      price: 11499,
+      originalPrice: 16999,
+      amenities: ["Business Center", "Luxury Spa", "Multi-cuisine", "Pool"],
+      description: "Contemporary luxury meets traditional Indian hospitality at this premium business hotel in the heart of Gujarat.",
       icons: [Coffee, Waves, Wifi, Car]
     }
   ];
 
   const handleBookNow = (hotel: any) => {
-    // Simulate payment page redirect
-    alert(`Redirecting to payment page for ${hotel.name}...`);
-    // In a real app, this would redirect to a payment gateway
+    // Create payment form data
+    const paymentData = {
+      hotelName: hotel.name,
+      location: hotel.location,
+      price: hotel.price,
+      nights: 1, // Default to 1 night
+      totalAmount: hotel.price
+    };
+    
+    // Redirect to payment page with hotel data
+    const paymentUrl = `/payment?hotel=${encodeURIComponent(JSON.stringify(paymentData))}`;
+    window.location.href = paymentUrl;
   };
 
   return (
