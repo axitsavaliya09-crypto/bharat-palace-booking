@@ -1,10 +1,41 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Search, MapPin, Calendar, Users } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 import heroImage from "@/assets/hero-taj-mahal.jpg";
 
 const Hero = () => {
+  const { toast } = useToast();
+  const [searchData, setSearchData] = useState({
+    destination: "",
+    checkin: "",
+    checkout: "",
+    guests: "1 Guest"
+  });
+
+  const handleSearch = () => {
+    if (!searchData.destination || !searchData.checkin || !searchData.checkout) {
+      toast({
+        title: "Please fill all fields",
+        description: "Destination, check-in, and check-out dates are required.",
+        variant: "destructive"
+      });
+      return;
+    }
+    
+    toast({
+      title: "Searching Hotels",
+      description: `Looking for hotels in ${searchData.destination} from ${searchData.checkin} to ${searchData.checkout}`,
+    });
+    
+    // Scroll to hotel listings section
+    const hotelSection = document.getElementById('hotel-listings');
+    if (hotelSection) {
+      hotelSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
   return (
     <section 
       className="relative min-h-[80vh] flex items-center justify-center bg-cover bg-center bg-no-repeat"
@@ -31,7 +62,12 @@ const Hero = () => {
                   <MapPin className="h-4 w-4 mr-1" />
                   Destination
                 </label>
-                <Input placeholder="Where do you want to go?" className="border-border/50" />
+                <Input 
+                  placeholder="Where do you want to go?" 
+                  className="border-border/50"
+                  value={searchData.destination}
+                  onChange={(e) => setSearchData({...searchData, destination: e.target.value})}
+                />
               </div>
               
               <div className="space-y-2">
@@ -39,7 +75,12 @@ const Hero = () => {
                   <Calendar className="h-4 w-4 mr-1" />
                   Check-in
                 </label>
-                <Input type="date" className="border-border/50" />
+                <Input 
+                  type="date" 
+                  className="border-border/50"
+                  value={searchData.checkin}
+                  onChange={(e) => setSearchData({...searchData, checkin: e.target.value})}
+                />
               </div>
               
               <div className="space-y-2">
@@ -47,7 +88,12 @@ const Hero = () => {
                   <Calendar className="h-4 w-4 mr-1" />
                   Check-out
                 </label>
-                <Input type="date" className="border-border/50" />
+                <Input 
+                  type="date" 
+                  className="border-border/50"
+                  value={searchData.checkout}
+                  onChange={(e) => setSearchData({...searchData, checkout: e.target.value})}
+                />
               </div>
               
               <div className="space-y-2">
@@ -55,7 +101,11 @@ const Hero = () => {
                   <Users className="h-4 w-4 mr-1" />
                   Guests
                 </label>
-                <select className="w-full h-10 px-3 py-2 text-sm bg-background border border-border/50 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2">
+                <select 
+                  className="w-full h-10 px-3 py-2 text-sm bg-background border border-border/50 rounded-md focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+                  value={searchData.guests}
+                  onChange={(e) => setSearchData({...searchData, guests: e.target.value})}
+                >
                   <option>1 Guest</option>
                   <option>2 Guests</option>
                   <option>3 Guests</option>
@@ -65,7 +115,12 @@ const Hero = () => {
             </div>
             
             <div className="mt-6">
-              <Button variant="hero" size="lg" className="w-full md:w-auto px-12">
+              <Button 
+                variant="hero" 
+                size="lg" 
+                className="w-full md:w-auto px-12"
+                onClick={handleSearch}
+              >
                 <Search className="h-5 w-5 mr-2" />
                 Search Hotels
               </Button>
